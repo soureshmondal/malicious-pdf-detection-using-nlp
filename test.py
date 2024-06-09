@@ -14,7 +14,7 @@ tokenizer = BertTokenizerFast.from_pretrained("bert-base-uncased")
 
 from preprocessing import get_file_byte_string
 
-def to_check_results(test_encoding):
+def pdf_check(test_encoding):
     input_ids = torch.tensor(test_encoding["input_ids"]).to(device)
     attention_mask = torch.tensor(test_encoding["attention_mask"]).to(device)
     with torch.no_grad():
@@ -27,7 +27,7 @@ def to_check_results(test_encoding):
 test_encoding1 = tokenizer(str(get_file_byte_string("./data/malicious.pdf")), truncation=True, padding=True)
 input_ids = torch.tensor(test_encoding1['input_ids']).to(device)
 attention_mask = torch.tensor(test_encoding1['attention_mask']).to(device)
-op = to_check_results(test_encoding1)
+output = pdf_check(test_encoding1)
 
-print("==========================================")
-print("Predicted Result:", op)
+print("If predicted result is '0' then PDF is Benign if predicted result is '1' then PDF is Malicious ")
+print("Predicted Result:", output)
