@@ -3,7 +3,6 @@ import pandas as pd
 import torch
 from transformers import BertForSequenceClassification, BertTokenizerFast
 
-# Load BERT model and tokenizer
 model = BertForSequenceClassification.from_pretrained("bert-base-uncased")
 model.load_state_dict(torch.load("./results/model_weights.pth"))
 model.eval()
@@ -24,7 +23,7 @@ def to_check_results(test_encoding):
 
     return y
 
-# Get the byte string from the file and encode it
+
 test_encoding1 = tokenizer(str(get_file_byte_string("./data/malicious.pdf")), truncation=True, padding=True)
 input_ids = torch.tensor(test_encoding1['input_ids']).to(device)
 attention_mask = torch.tensor(test_encoding1['attention_mask']).to(device)
